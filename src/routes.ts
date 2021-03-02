@@ -1,9 +1,9 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
+import personController from './controllers/personController';
+
 
 const routes = Router();
 
-routes.get('/', (request: Request, response: Response) => {
-  response.json({message: 'Boss Boa you are going so well'})
-})
+routes.post('/persons', personController.create)
 
 export default routes;

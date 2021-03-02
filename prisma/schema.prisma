@@ -34,15 +34,15 @@ model persons {
   pai           String?
   sexo          String?
   escolaridade  String?
-  proficao      String?
-  nascido       DateTime?
+  profissao     String?
+  nascido       String?
   obito         Boolean  @default(false)
   codigo_postal Int?
   provincia     String?
   cidade        String?
-  bairo         String?
+  bairro        String?
   quarteirao    String?
-  casa          String?
+  casa          Int?
   users         users     @relation(fields: [user_id], references: [id])
   user_id       String
   created_at    DateTime  @default(now())

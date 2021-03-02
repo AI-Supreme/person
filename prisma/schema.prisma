@@ -9,3 +9,46 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model users {
+  id            String    @id @default(uuid())
+  name          String
+  company       String
+  email         String    @unique
+  tel           String
+  password      String
+  person_api    Boolean   @default(false)
+  cambio_api    Boolean   @default(false)
+  created_at    DateTime  @default(now())
+  updated_at    DateTime
+  persons    persons[]
+}
+
+model persons {
+  id            String    @id @default(uuid())
+  nome          String
+  email         String    @unique
+  tel           String
+  tel2          String?
+  mae           String?
+  pai           String?
+  sexo          String?
+  escolaridade  String?
+  proficao      String?
+  nascido       DateTime?
+  obito         Boolean  @default(false)
+  codigo_postal Int?
+  provincia     String?
+  cidade        String?
+  bairo         String?
+  quarteirao    String?
+  casa          String?
+  users         users     @relation(fields: [user_id], references: [id])
+  user_id       String
+  created_at    DateTime  @default(now())
+  updated_at    DateTime
+  deleted       Boolean  @default(false)
+}
+
+
+

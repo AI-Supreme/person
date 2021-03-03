@@ -15,7 +15,7 @@ CREATE TABLE "users" (
 );
 
 -- CreateTable
-CREATE TABLE "persons" (
+CREATE TABLE "people" (
     "id" TEXT NOT NULL,
     "nome" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE "persons" (
     "tel2" TEXT,
     "mae" TEXT,
     "pai" TEXT,
-    "sexo" TEXT,
+    "gender_id" INTEGER NOT NULL,
     "escolaridade" TEXT,
     "profissao" TEXT,
     "nascido" TEXT,
@@ -42,11 +42,25 @@ CREATE TABLE "persons" (
     PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "genders" (
+    "id" SERIAL NOT NULL,
+    "gender" TEXT NOT NULL,
+
+    PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users.email_unique" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "persons.email_unique" ON "persons"("email");
+CREATE UNIQUE INDEX "people.email_unique" ON "people"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "genders.gender_unique" ON "genders"("gender");
 
 -- AddForeignKey
-ALTER TABLE "persons" ADD FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "people" ADD FOREIGN KEY ("gender_id") REFERENCES "genders"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "people" ADD FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;

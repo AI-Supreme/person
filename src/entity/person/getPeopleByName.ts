@@ -5,7 +5,10 @@ const prisma = new PrismaClient();
 const getPeopleByName = async (nome: string) => {
   // await validator.name(data);
 
-  const people = await prisma.people.findMany({where: { nome }});
+  const people = await prisma.people.findMany({
+    where: { nome }, 
+    include: {genders: true}
+  });
 
   if(!people) return 'NotFound';
 

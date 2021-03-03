@@ -16,21 +16,19 @@ export interface PersonData {
   provincia: string
   cidade: string
   bairro: string
-  quarteirao: string
+  quarteirao: number
   casa: number
 }
 
 const prisma = new PrismaClient();
 
 const createPerson = async (data: PersonData) => {
-  // await validator.person(data);
-
   const person = await prisma.people.findUnique({where: { email: data.email }});
 
   if(person)
   return 'AlreadyExist';
 
-  const user_id = await prisma.users.create({
+  const user = await prisma.users.create({
     data: {
       name: "Arlindo",
       company: "AI Supreme",
@@ -44,6 +42,11 @@ const createPerson = async (data: PersonData) => {
     }
   })
 
+  const gender = await prisma.genders.findUnique({where: { gender: data.sexo }});
+
+  
+  if(!gender) return 'GenderNotFound';
+
   const newPerson = await prisma.people.create({
     data: {
       nome: data.nome,
@@ -52,7 +55,7 @@ const createPerson = async (data: PersonData) => {
       tel2: data.tel2,
       mae: data.mae,
       pai: data.pai,
-      sexo: data.sexo,
+      gender_id: gender.id,
       escolaridade: data.escolaridade,
       profissao: data.profissao,
       nascido: data.dataDeNascimento,
@@ -63,8 +66,11 @@ const createPerson = async (data: PersonData) => {
       bairro: data.bairro,
       quarteirao: data.quarteirao,
       casa: data.casa,
-      user_id: user_id.id,
+      user_id: user.id,
       updated_at: new Date,
+    },
+    include: {
+      genders: true
     }
   })
   

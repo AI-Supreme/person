@@ -21,10 +21,10 @@ model users {
   cambio_api    Boolean   @default(false)
   created_at    DateTime  @default(now())
   updated_at    DateTime
-  persons    persons[]
+  people    people[]
 }
 
-model persons {
+model people {
   id            String    @id @default(uuid())
   nome          String
   email         String    @unique

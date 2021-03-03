@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import createPerson, { PersonData } from "../entity/person/create";
-import getPersonsByName from '../entity/person/getPersonsByName';
+import getPeopleByName from '../entity/person/getPeopleByName';
 import personView from '../views/person';
 
 
@@ -8,12 +8,12 @@ export default {
   async index(request: Request, response: Response) {
     const { nome } = request.body;
     
-    const persons = await getPersonsByName(nome);
+    const people = await getPeopleByName(nome);
 
-    if(persons === 'NotFound')
+    if(people === 'NotFound')
     return response.status(404).json({error: 'Não foi encontrado nenhuma pessoa com o nome dado.'})
 
-    response.status(200).json(personView.renderMany(persons));
+    response.status(200).json(personView.renderMany(people));
   },
 
   async create(request: Request, response: Response) {

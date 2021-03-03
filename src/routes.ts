@@ -4,7 +4,7 @@ import personController from './controllers/personController';
 
 const routes = Router();
 
-routes.post('/persons', personController.create)
-routes.post('/persons/get', personController.index)
+routes.post('/person', personController.create)
+routes.post('/person/get', personController.index)
 
 export default routes;

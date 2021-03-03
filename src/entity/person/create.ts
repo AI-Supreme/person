@@ -25,7 +25,7 @@ const prisma = new PrismaClient();
 const createPerson = async (data: PersonData) => {
   // await validator.person(data);
 
-  const person = await prisma.persons.findUnique({where: { email: data.email }});
+  const person = await prisma.people.findUnique({where: { email: data.email }});
 
   if(person)
   return 'AlreadyExist';
@@ -44,7 +44,7 @@ const createPerson = async (data: PersonData) => {
     }
   })
 
-  const newPerson = await prisma.persons.create({
+  const newPerson = await prisma.people.create({
     data: {
       nome: data.nome,
       email: data.email,

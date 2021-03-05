@@ -1,4 +1,4 @@
-import { genders, people  } from '@prisma/client';
+import { genders  } from '@prisma/client';
 
 interface Person {
   id: string
@@ -35,7 +35,7 @@ export default {
       tel2: person.tel2,
       mae: person.mae,
       pai: person.pai,
-      sexo: person.genders.gender === 'Not defined' && 'Não definido',
+      sexo: person.genders.gender === 'Not defined'? 'Não definido': person.genders.gender,
       escolaridade: person.escolaridade,
       profissao: person.profissao,
       dataDeNascimento: person.nascido,

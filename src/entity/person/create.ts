@@ -44,7 +44,6 @@ const createPerson = async (data: PersonData) => {
 
   const gender = await prisma.genders.findUnique({where: { gender: data.sexo }});
 
-  
   if(!gender) return 'GenderNotFound';
 
   const newPerson = await prisma.people.create({
@@ -60,12 +59,12 @@ const createPerson = async (data: PersonData) => {
       profissao: data.profissao,
       nascido: data.dataDeNascimento,
       obito: data.obito,
-      codigo_postal: data.codigo_postal,
+      codigo_postal: Number(data.codigo_postal),
       provincia: data.provincia,
       cidade: data.cidade,
       bairro: data.bairro,
-      quarteirao: data.quarteirao,
-      casa: data.casa,
+      quarteirao: Number(data.quarteirao),
+      casa: Number(data.casa),
       user_id: user.id,
       updated_at: new Date,
     },

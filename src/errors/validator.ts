@@ -25,41 +25,55 @@ export default {
         .min(6, 'o seu contacto deve ter mínimo 9 máximo 13 caracteres')
         .max(15, 'o seu contacto deve ter mínimo 9 máximo 13 caracteres'),
       tel2: yup.string()
+        .notRequired()
         .min(6, 'o seu contacto deve ter mínimo 9 máximo 13 caracteres')
         .max(15, 'o seu contacto deve ter mínimo 9 máximo 13 caracteres'),
       mae: yup.string()
+        .notRequired()
         .min(3, 'Nome deve ter mínimo 3 máximo 45 caracteres')
         .max(45, 'Nome deve ter mínimo 3 máximo 45 caracteres'),
       pai: yup.string()
+        .notRequired()
         .min(3, 'Nome deve ter mínimo 3 máximo 45 caracteres')
         .max(45, 'Nome deve ter mínimo 3 máximo 45 caracteres'),
       sexo: yup.string()
+        .notRequired()
         .matches(/(M|F|Not defined)/, {
           message: 'Use o M ou F para referir o género',
           excludeEmptyString: false
         }),
       escolaridade: yup.string()
+        .notRequired()
         .min(3, 'Nome deve ter mínimo 3 máximo 66 caracteres')
         .max(66, 'Nome deve ter mínimo 3 máximo 66 caracteres'),
       profissao: yup.string()
+        .notRequired()
         .min(3, 'Nome deve ter mínimo 3 máximo 99 caracteres')
         .max(99, 'Nome deve ter mínimo 3 máximo 99 caracteres'),
       dataDeNascimento: yup.date().transform(parseDateString)
+        .notRequired()
         .max(new Date, 'Data de nascimento invalida'),
-      obito: yup.boolean(),
-      codigo_postal: yup.number(),
+      obito: yup.boolean()
+        .notRequired(),
+      codigo_postal: yup.number()
+        .notRequired(),
       provincia: yup.string()
+        .notRequired()
         .min(3, 'Nome deve ter mínimo 3 máximo 20 caracteres')
         .max(20, 'Nome deve ter mínimo 3 máximo 20 caracteres'),
       cidade: yup.string()
+        .notRequired()
         .min(3, 'Nome deve ter mínimo 3 máximo 23 caracteres')
         .max(23, 'Nome deve ter mínimo 3 máximo 23 caracteres'),
       bairro: yup.string()
+        .notRequired()
         .min(3, 'Nome deve ter mínimo 3 máximo 23 caracteres')
         .max(23, 'Nome deve ter mínimo 3 máximo 23 caracteres'),
       quarteirao: yup.number()
+        .notRequired()
         .max(3000000, 'Numero do quarteirão invalido'),
       casa: yup.number()
+        .notRequired()
         .max(3000000, 'Numero da casa invalida')
     })
 
@@ -93,5 +107,15 @@ export default {
     })
 
     await schema.validate({ nome })
+  },
+
+  async email(email: string) {
+    const schema = yup.object().shape({
+      email: yup.string()
+        .required('Email obrigatório!')
+        .email('Email invalido, verifica o seu email e volte a tentar.')
+    })
+
+    await schema.validate({ email })
   }
 }
